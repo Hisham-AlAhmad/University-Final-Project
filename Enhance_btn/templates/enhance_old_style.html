@@ -1,0 +1,113 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enhance Image</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+    <link rel="stylesheet" href="{{ url_for('Enhance_btn.static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Enhance Image</h1>
+    <form id="image-form">
+        <div data-mdb-input-init class="form-outline" style="width: 30rem; margin-left: 20px;">
+            <input type="file" class="form-control form-control-lg" id="imageUpload" name="image" accept="image/*" required>      
+            <br>  
+        </div>
+    </form>
+    <div class="image-section">
+        <div id="image-container">
+            <img id="image" src="" style="max-width: 500px; max-height: 500px;">
+        </div>
+        <div class="output-section" style="display:none;">
+            <div class="img-preview">
+                <div id="imagePreview">
+                    <img id="output_image" src="" style="max-width: 500px; max-height: 500px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="crop-container">
+        <button class="btn btn-info btn-lg" id="enhance-button">Enhance Image</button>
+    </div>
+    <br>
+    <button style="margin-left: 7%; display: none;" class="btn btn-danger btn-lg" id="saveOriginalImage">Save Image</button>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script>
+       $(document).ready(function() {
+            var image = document.getElementById('image');
+            var output_image = document.getElementById('output_image');
+            var parentDiv = document.querySelector('.image-section');
+            var originalFilename = 'filename';
+            var cropRect = {};
+            var isDragging = false;
+            var originalImageWidth, originalImageHeight;
+            var resizedImageWidth, resizedImageHeight;
+            var filename;
+
+            $("#imageUpload").change(function() {
+                // var fileInput = $(this)[0];
+                // var filename = fileInput.files[0].name;
+                // filename = changeExtension(filename);
+                var formData = new FormData($('#image-form')[0]);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url_for('Enhance_btn.upload_image') }}",
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        filename = data.filename;
+                        console.log(filename);
+                        image.src = '/Enhance_btn/get_original_image/' + filename;
+                        console.log('Success upload!');
+                    }
+                });
+            });
+
+            $('#enhance-button').on('click', function(event) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Enhance_btn/enhance_image',
+                    data: JSON.stringify({filename: filename }),
+                    contentType: 'application/json',
+                    success: function(data) {
+                        $('#saveOriginalImage').show();
+                        $('.output-section').show();
+                        parentDiv.style.display = 'flex';
+                        originalFilename = data.filename;
+                        output_image.src = '/Enhance_btn/get_image/' + data.filename;
+
+                        console.log('Success Crop!');
+                    }
+                });
+            });
+
+            document.getElementById('saveOriginalImage').addEventListener('click', function() {
+                // Create a new Blob object from the original image URL
+                fetch('/Enhance_btn/get_image/' + originalFilename)
+                    .then(function(response) {
+                        return response.blob();
+                    })
+                    .then(function(blob) {
+                        // Create a new URL object from the Blob object
+                        var url = URL.createObjectURL(blob);
+                        // Create a new link element
+                        var link = document.createElement('a');
+                        // Set the href attribute of the link element to the new URL
+                        link.href = url;
+                        // Set the download attribute of the link element to the original image filename
+                        link.download = originalFilename;
+                        // Programmatically click the link element to download the image
+                        link.click();
+                        // Revoke the object URL after the download is complete
+                        URL.revokeObjectURL(url);
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
