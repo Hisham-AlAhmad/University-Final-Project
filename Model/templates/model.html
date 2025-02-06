@@ -1,0 +1,283 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gussing Human</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="{{ url_for('Blur_Humans_btn.static', filename='css/styles.css') }}"> -->
+    <!-- Favicon -->
+    <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='icons/darkHA.png') }}" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload_image.css') }}">
+
+</head>
+
+<body>
+    <div class="container-fluid bg-white position-relative">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
+            <a href="/" class="navbar-brand text-secondary">
+                <img height="100px" width="100px" src="{{ url_for('static', filename='icons/whiteHA.png') }}" alt="">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ml-auto py-0 pr-3 border-right">
+                    <a href="/" class="nav-item nav-link">Home</a>
+                    <a href="/edit" class="nav-item nav-link">Edit</a>
+                    <a href="/about" class="nav-item nav-link">About</a>
+                    <a href="{{ url_for('Model.index') }}" class="nav-item nav-link active">Mini-Game</a>
+                    <a href="/services" class="nav-item nav-link">Services</a>
+                    <a href="/projects" class="nav-item nav-link">Projects</a>
+                    <a href="/team" class="nav-item nav-link">Team</a>
+                </div>
+                <div class="d-none d-lg-flex align-items-center pl-4">
+                    <i class="fa fa-2x fa-mobile-alt text-primary mr-3"></i>
+                    <div>
+                        <h6 class="text-body text-uppercase mb-1"><small>Call us At</small></h6>
+                        <h6 class="m-0">+961 81 212 862</h6>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <br>
+    <h1>Upload Image to check if the Human is: Male Or Female</h1>
+
+    <form id="image-form">
+        <div data-mdb-input-init class="form-outline">
+            <div class="image-upload-wrap">
+                <input class="file-upload-input" type='file' onchange="readURL(this);" id="imageUpload" name="image"
+                    accept="image/*" />
+                <div class="drag-text">
+                    <h3>Drag and drop a file or select add Image</h3>
+                </div>
+            </div>
+            <br>
+        </div>
+    </form>
+    <div class="file-upload-content">
+        <div class="image-section">
+            <div id="image-container">
+                <img id="image" src="" style="max-width: 500px; max-height: 500px;">
+            </div>
+            <div class="output-section" style="display:none;">
+                <div class="img-preview">
+                    <div id="imagePreview">
+                        <img id="output_image" src="" style="max-width: 500px; max-height: 500px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <br>
+    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
+        Image</button>
+    <br><br>
+
+    <div id="btn-container">
+        <button class="btn btn-new btn-lg" id="predict-button">Predict!</button>
+    </div>
+    <br>
+    <h2>Result: <span id="predict-result"></span></h2>
+    <div class="loader" style="display:none;"></div>
+    <br>
+
+    <!-- Choose another one  -->
+    <div class="container-fluid py-5">
+        <div class="container pt-5 pb-3">
+            <h1 class="display-4 text-uppercase text-center mb-5">Choose How To Edit Your Image:</h1>
+            <div class="row">
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4 " onclick="redirect('blur_human')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/user-large-slash-solid.svg') }}">
+                        <h4 class="text-uppercase mb-4">Blur <span class="d-block text-body">Humans</span></h4>
+                        <p class="m-0">Preserving privacy,
+                            Hide identity, <br>
+                            or you just don't like him. :)</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('blur_background')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/no_background.png') }}">
+                        <h4 class="text-uppercase mb-4">Blur <span class="d-block text-body">Background</span></h4>
+                        <p class="m-0">You like the human to the level of only seeing him.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('change_background')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/replace.png') }}">
+                        <h4 class="text-uppercase mb-4">Change <span class="d-block text-body">Background</span></h4>
+                        <p class="m-0">Going to other place in the world, or to go to another world.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('enhance_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/magic-wand.png') }}">
+                        <h4 class="text-uppercase mb-4">Enhace <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Get your image to a different dimension of clarifiation.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('filter_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/filter.png') }}">
+                        <h4 class="text-uppercase mb-4">Filter <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Using filters: <br>
+                            Black & White, <br>
+                            Vivid.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('crop_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/crop.png') }}">
+                        <h4 class="text-uppercase mb-4">Crop <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Cropping an image: removing edges, focusing on desired area.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('resize_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/resize.png') }}">
+                        <h4 class="text-uppercase mb-4">Reszie <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Profile picture, Phone wallpaper, Laptop wallpaper, Ensuring optimal fit.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 25px;"
+                            src="{{ url_for('static', filename='icons/code.png') }}">
+                        <h4 class="text-uppercase mb-4">Coming <span class="d-block text-body">Soon</span></h4>
+                        <p class="m-0">New features will be unlocked Soon.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Start -->
+    {% include "footer.html" %}
+    <!-- Footer End -->
+
+    {% include "scripts.html" %}
+    
+    <script>
+        $(document).ready(function () {
+            var image = document.getElementById('image');
+            var output_image = document.getElementById('output_image');
+            var parentDiv = document.querySelector('.image-section');
+            var result_place = document.getElementById('predict-result');
+            var filename;
+
+            $("#imageUpload").change(function () {
+                var formData = new FormData($('#image-form')[0]);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url_for('Model.upload_image') }}",
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function (data) {
+                        filename = data.filename;
+                        console.log(filename);
+                        image.src = '/Model/get_original_image/' + filename;
+                        console.log('Success upload!');
+                    }
+                });
+            });
+
+            $('#predict-button').on('click', function (event) {
+                $('.loader').show();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Model/predict',
+                    data: JSON.stringify({ filename: filename }),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        $('.loader').hide();
+                        // $('.output-section').show();
+                        // parentDiv.style.display = 'flex';
+                        result_place.innerHTML = '';
+                        result_place.append(data.result);
+                        
+                        console.log('Success predicted!');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.image-upload-wrap').hide();
+
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+
+                    $('.image-title').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+
+            }
+        }
+    </script>
+    <script>
+        function redirect(value) {
+            if (value == "blur_human") {
+                window.location.href = "{{ url_for('Blur_Humans_btn.index') }}"
+            }
+            if (value == "blur_background") {
+                window.location.href = "{{ url_for('Blur_Background_btn.index') }}"
+            }
+            if (value == "change_background") {
+                window.location.href = "{{ url_for('Change_Background_btn.index') }}"
+            }
+            if (value == "enhance_image") {
+                window.location.href = "{{ url_for('Enhance_btn.index') }}"
+            }
+            if (value == "crop_image") {
+                window.location.href = "{{ url_for('Crop_btn.index') }}"
+            }
+            if (value == "filter_image") {
+                window.location.href = "{{ url_for('Filters_btn.index') }}"
+            }
+            if (value == "resize_image") {
+                window.location.href = "{{ url_for('Resize_btn.index') }}"
+            }
+        }
+    </script>
+</body>
+
+</html>
