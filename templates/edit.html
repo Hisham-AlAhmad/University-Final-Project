@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Edit</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    {% include "head.html" %}
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    {% include "navbar.html" %}
+    <hr>
+    <!-- Navbar End -->
+
+    <!-- Edit Start -->
+    <div class="container-fluid py-5">
+        <div class="container pt-5 pb-3">
+            <h1 class="display-4 text-uppercase text-center mb-5">Choose How To Edit Your Image:</h1>
+            <div class="row">
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4 " onclick="redirect('blur_human')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/user-large-slash-solid.svg') }}">
+                        <h4 class="text-uppercase mb-4">Blur <span class="d-block text-body">Humans</span></h4>
+                        <p class="m-0">Preserving privacy,
+                            Hide identity, <br>
+                            or you just don't like him. :)</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('blur_background')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/no_background.png') }}">
+                        <h4 class="text-uppercase mb-4">Blur <span class="d-block text-body">Background</span></h4>
+                        <p class="m-0">You like the human to the level of only seeing him.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('change_background')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/replace.png') }}">
+                        <h4 class="text-uppercase mb-4">Change <span class="d-block text-body">Background</span></h4>
+                        <p class="m-0">Going to other place in the world, or to go to another world.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('enhance_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/magic-wand.png') }}">
+                        <h4 class="text-uppercase mb-4">Enhace <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Get your image to a different dimension of clarifiation.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('filter_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/filter.png') }}">
+                        <h4 class="text-uppercase mb-4">Filter <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Using filters: <br>
+                            Black & White, <br>
+                            Vivid.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('crop_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/crop.png') }}">
+                        <h4 class="text-uppercase mb-4">Crop <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Cropping an image: removing edges, focusing on desired area.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('resize_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/resize.png') }}">
+                        <h4 class="text-uppercase mb-4">Reszie <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Profile picture, Phone wallpaper, Laptop wallpaper, Ensuring optimal fit.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 25px;"
+                            src="{{ url_for('static', filename='icons/code.png') }}">
+                        <h4 class="text-uppercase mb-4">Coming <span class="d-block text-body">Soon</span></h4>
+                        <p class="m-0">New features will be unlocked Soon.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Edit end -->
+
+    <!-- Footer Start -->
+    {% include "footer.html" %}
+    <!-- Footer End -->
+
+    <!-- Scripts Start -->
+    {% include "scripts.html" %}
+    <!-- Scripts End -->
+    <script>
+        function redirect(value) {
+            if (value == "blur_human") {
+                window.location.href = "{{ url_for('Blur_Humans_btn.index') }}"
+            }
+            if (value == "blur_background") {
+                window.location.href = "{{ url_for('Blur_Background_btn.index') }}"
+            }
+            if (value == "change_background") {
+                window.location.href = "{{ url_for('Change_Background_btn.index') }}"
+            }
+            if (value == "enhance_image") {
+                window.location.href = "{{ url_for('Enhance_btn.index') }}"
+            }
+            if (value == "crop_image") {
+                window.location.href = "{{ url_for('Crop_btn.index') }}"
+            }
+            if (value == "filter_image") {
+                window.location.href = "{{ url_for('Filters_btn.index') }}"
+            }
+            if (value == "resize_image") {
+                window.location.href = "{{ url_for('Resize_btn.index') }}"
+            }
+        }
+    </script>
+</body>
+
+</html>

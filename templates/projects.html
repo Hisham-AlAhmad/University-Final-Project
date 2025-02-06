@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Projects</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    {% include "head.html" %}
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-white position-relative">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
+            <a href="/" class="navbar-brand text-secondary">
+                <img height="100px" width="100px" src="{{ url_for('static', filename='icons/whiteHA.png') }}" alt="">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ml-auto py-0 pr-3 border-right">
+                    <a href="/" class="nav-item nav-link">Home</a>
+                    <a href="/edit" class="nav-item nav-link">Edit</a>
+                    <a href="/about" class="nav-item nav-link">About</a>
+                    <a href="{{ url_for('Model.index') }}" class="nav-item nav-link">Mini-Game</a>
+                    <a href="/services" class="nav-item nav-link">Services</a>
+                    <a href="/projects" class="nav-item nav-link active">Projects</a>
+                    <a href="/team" class="nav-item nav-link">Team</a>
+                </div>
+                <div class="d-none d-lg-flex align-items-center pl-4">
+                    <i class="fa fa-2x fa-mobile-alt text-primary mr-3"></i>
+                    <div>
+                        <h6 class="text-body text-uppercase mb-1"><small>Call us At</small></h6>
+                        <h6 class="m-0">+961 81 212 862</h6>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="page-header container-fluid bg-primary d-flex flex-column align-items-center justify-content-center">
+        <h1 class="display-3 text-uppercase mb-3">Projects</h1>
+        <div class="d-inline-flex text-white">
+            <h6 class="text-uppercase m-0"><a class="text-white" href="">Home</a></h6>
+            <h6 class="m-0 px-3">/</h6>
+            <h6 class="text-uppercase m-0">Projects</h6>
+        </div>
+    </div>
+    <!-- Page Header Start -->
+
+
+    <!-- Portfolio Start -->
+    <div class="container-fluid py-5">
+        <div class="container pt-5 pb-3">
+            <h1 class="display-4 text-uppercase text-center mb-5">Visit Our Projects</h1>
+            <div class="row">
+                <div class="col-12 text-center mb-2">
+                    <ul class="list-inline mb-4" id="portfolio-flters">
+                        <li class="btn btn-outline-dark text-uppercase py-2 px-4 active" data-filter="*">
+                            <i class="fa fa-star text-primary mr-2"></i>All
+                        </li>
+                        <li class="btn btn-outline-dark text-uppercase py-2 px-4" data-filter=".changed">
+                            <i class="fa fa-laptop-code text-primary mr-2"></i>Changed Background
+                        </li>
+                        <li class="btn btn-outline-dark text-uppercase py-2 px-4" data-filter=".background">
+                            <i class="fa fa-mobile-alt text-primary mr-2"></i>Blured Background
+                        </li>
+                        <li class="btn btn-outline-dark text-uppercase py-2 px-4" data-filter=".humans">
+                            <i class="fa fa-mobile-alt text-primary mr-2"></i>Blured Humans
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row portfolio-container">
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item background">
+                    <div class="position-relative rounded overflow-hidden mb-2">
+                        <img class="img-fluid w-100 same-size" src="{{ url_for('static', filename='img/blur_background1.png') }}" alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/blur_background_img.png') }}" data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item changed">
+                    <div class="position-relative rounded overflow-hidden mb-2 ">
+                        <img class="img-fluid w-100 same-size" src="{{ url_for('static', filename='img/changed_background1.jpg') }}" alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/changed_background1.jpg') }}" data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item background">
+                    <div class="position-relative rounded overflow-hidden mb-2">
+                        <img class="img-fluid w-100" src="{{ url_for('static', filename='img/blur_background2.png') }}" alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/blur_background2.png') }}" data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item humans">
+                    <div class="position-relative rounded overflow-hidden mb-2">
+                        <img class="img-fluid w-100" src="{{ url_for('static', filename='img/blur_human1.png') }}" alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/blur_human1.png') }}" data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item changed">
+                    <div class="position-relative rounded overflow-hidden mb-2">
+                        <img class="img-fluid w-100" src="{{ url_for('static', filename='img/changed_background3.jpg') }}" alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/changed_background3.jpg') }}" data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item humans">
+                    <div class="position-relative rounded overflow-hidden mb-2">
+                        <img class="img-fluid w-100" src="{{ url_for('static', filename='img/blur_human3.png') }}" alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/blur_human3.png') }}" data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Portfolio End -->
+
+
+    <!-- Footer Start -->
+    {% include "footer.html" %}
+    <!-- Footer End -->
+
+
+    <!-- Scripts Start -->
+    {% include "scripts.html" %}
+    <!-- Scripts End -->
+</body>
+
+</html>

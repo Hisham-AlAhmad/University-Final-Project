@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Team</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    {% include "head.html" %}
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-white position-relative">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
+            <a href="/" class="navbar-brand text-secondary">
+                <img height="100px" width="100px" src="{{ url_for('static', filename='icons/whiteHA.png') }}" alt="">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ml-auto py-0 pr-3 border-right">
+                    <a href="/" class="nav-item nav-link">Home</a>
+                    <a href="/edit" class="nav-item nav-link">Edit</a>
+                    <a href="/about" class="nav-item nav-link">About</a>
+                    <a href="{{ url_for('Model.index') }}" class="nav-item nav-link">Mini-Game</a>
+                    <a href="/services" class="nav-item nav-link">Services</a>
+                    <a href="/projects" class="nav-item nav-link">Projects</a>
+                    <a href="/team" class="nav-item nav-link active">Team</a>
+                </div>
+                <div class="d-none d-lg-flex align-items-center pl-4">
+                    <i class="fa fa-2x fa-mobile-alt text-primary mr-3"></i>
+                    <div>
+                        <h6 class="text-body text-uppercase mb-1"><small>Call us At</small></h6>
+                        <h6 class="m-0">+961 81 212 862</h6>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="page-header container-fluid bg-primary d-flex flex-column align-items-center justify-content-center">
+        <h1 class="display-3 text-uppercase mb-3">Team</h1>
+        <div class="d-inline-flex text-white">
+            <h6 class="text-uppercase m-0"><a class="text-white" href="">Home</a></h6>
+            <h6 class="m-0 px-3">/</h6>
+            <h6 class="text-uppercase m-0">Team</h6>
+        </div>
+    </div>
+    <!-- Page Header Start -->
+
+
+    <!-- Team Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <h1 class="display-4 text-uppercase text-center mb-5">Meet Our Team</h1>
+            <!-- <div class="owl-carousel team-carousel position-relative" style="padding-left: 30px;"> -->
+                <div class="team-item rounded overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid w-100" style="max-width: 400px; max-height: 400px; margin-left: 31%;" src="{{ url_for('static', filename='img/cropped_me_glasses.png') }}" alt="">
+                        <!-- <div class="team-overlay" style="max-width: 250px;margin-left: 35%;">
+                            <div class="d-flex align-items-center justify-content-start">
+                                <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="instagram.com/hisham00x"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="bg-light text-center p-4" style="max-width: 500px;margin-left: 26%;">
+                        <h4 class="text-uppercase">Hisham Al Ahmad</h4>
+                        <p class="m-0">Programmer, Designer, Artist</p>
+                    </div>
+                </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <!-- Team End -->
+
+
+    <!-- Footer Start -->
+    {% include "footer.html" %}
+    <!-- Footer End -->
+
+
+    <!-- Scripts Start -->
+    {% include "scripts.html" %}
+    <!-- Scripts End -->
+</body>
+
+</html>

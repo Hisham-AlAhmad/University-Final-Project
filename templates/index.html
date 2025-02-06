@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>HA Editor</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    {% include "head.html" %}
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-white position-relative">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
+            <a href="/" class="navbar-brand text-secondary">
+                <img height="100px" width="100px" src="{{ url_for('static', filename='icons/whiteHA.png') }}" alt="">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ml-auto py-0 pr-3 border-right">
+                    <a href="/" class="nav-item nav-link active">Home</a>
+                    <a href="/edit" class="nav-item nav-link">Edit</a>
+                    <a href="/about" class="nav-item nav-link">About</a>
+                    <a href="{{ url_for('Model.index') }}" class="nav-item nav-link">Mini-Game</a>
+                    <a href="/services" class="nav-item nav-link">Services</a>
+                    <a href="/projects" class="nav-item nav-link">Projects</a>
+                    <a href="/team" class="nav-item nav-link">Team</a>
+                </div>
+                <div class="d-none d-lg-flex align-items-center pl-4">
+                    <i class="fa fa-2x fa-mobile-alt text-primary mr-3"></i>
+                    <div>
+                        <h6 class="text-body text-uppercase mb-1"><small>Call us At</small></h6>
+                        <h6 class="m-0">+961 81 212 862</h6>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 px-0" style="margin-bottom: 90px;">
+        <div class="row mx-0 align-items-center">
+            <div class="col-lg-6 px-md-5 text-center text-lg-left">
+                <h1 class="display-2 text-uppercase mb-3">One Of The Best Websites To Edit Your Image</h1>
+                <p class="text-dark mb-4">Welcome to HA Editor, the ultimate online photo editor!
+                    Transform your images with ease using our intuitive tools for cropping, resizing, filtering, and
+                    blurring.
+                    Achieve professional-quality results in minutes. Perfect for beginners and experts alike, HA Editor
+                    makes photo editing simple, fast, and fun. Try it now!</p>
+                <a href="/edit" class="btn btn-dark text-uppercase mt-1 py-3 px-5">Start Editing</a>
+            </div>
+            <div class="col-lg-6 px-0 text-right">
+                <img class="img-fluid mt-5 mt-lg-0" src="{{ url_for('static', filename='img/header2.png') }}" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img class="img-fluid mb-4 mb-lg-0"
+                        src="{{ url_for('static', filename='img/blur_background0.png') }}" alt="">
+                </div>
+                <div class="col-lg-6">
+                    <h1 class="display-4 text-uppercase mb-4">Best tool to blur the Background</h1>
+                    <h5 class="text-uppercase text-primary mb-3">Clita elitr et amet et ipsum sea. Ipsum stet kasd ea et
+                        no est duo diam. Lorem dolores eos ut nonumy ipsum sit clita lorem no amet dolor dolore, stet
+                        sit dolor justo</h5>
+                    <p class="mb-4">Eirmod est dolor nonumy sea amet dolore erat sit dolor et dolor vero. Tempor ipsum
+                        at justo amet at ipsum justo. Aiam kasd sea sit dolor duo elitr dolor amet, justo est ipsum amet
+                        dolor ut ipsum. Labore diam et nonumy amet dolores. Volup sit labore dolores erat, magna justo
+                        sed lorem kasd ea dolor. Labore sit clita invidunt, est dolores lorem sed ipsum kasd no amet
+                        ipsum.</p>
+                    <a href="{{ url_for('Blur_Background_btn.index') }}"
+                        class="btn btn-primary text-uppercase py-3 px-5">Blur The Background!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Services Start -->
+    <div class="container-fluid py-5">
+        <div class="container pt-5 pb-3">
+            <h1 class="display-4 text-uppercase text-center mb-5">Some Of Our Tool</h1>
+            <div class="row">
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('enhance_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/magic-wand.png') }}">
+                        <h4 class="text-uppercase mb-4">Enhace <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Get your image to a different dimension of clarifiation.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('filter_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/filter.png') }}">
+                        <h4 class="text-uppercase mb-4">Filter <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Using filters: <br>
+                            Black & White, <br>
+                            Vivid.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('crop_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/crop.png') }}">
+                        <h4 class="text-uppercase mb-4">Crop <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Cropping an image: removing edges, focusing on desired area.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('resize_image')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/resize.png') }}">
+                        <h4 class="text-uppercase mb-4">Reszie <span class="d-block text-body">Image</span></h4>
+                        <p class="m-0">Profile picture, Phone wallpaper, Laptop wallpaper, Ensuring optimal fit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Services End -->
+
+
+    <!-- Game Start -->
+    <div class="container-fluid py-5">
+        <div class="container pt-5 pb-3">
+            <h1 class="display-4 text-uppercase text-center mb-5">Our Mini Game: Gender Prediction</h1>
+            <div class="row">
+                <div class="col-lg-5 mb-2">
+                    <div class="service-item rounded p-5 mb-4" onclick="redirect('model')">
+                        <img style="max-width: 64px; max-height: 64px; margin-bottom: 20px;"
+                            src="{{ url_for('static', filename='icons/genders.png') }}">
+                        <h4 class="text-uppercase mb-4">Gender <span class="d-block text-body">Prediction</span></h4>
+                        <p class="m-0">Test out the human's gender here.
+                            <br>
+                            Keep in mind that not only humans make mistakes ;)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Game End -->
+
+    <!-- Portfolio Start -->
+    <div class="container-fluid py-5">
+        <div class="container pt-5 pb-3" style="margin-bottom: 10%;">
+            <h1 class="display-4 text-uppercase text-center mb-5">Visit Our Projects</h1>
+            <div class="row">
+                <div class="col-12 text-center mb-2">
+                    <ul class="list-inline mb-4" id="portfolio-flters">
+                        <li class="btn btn-outline-dark text-uppercase py-2 px-4 active" data-filter="*">
+                            <i class="fa fa-star text-primary mr-2"></i>All
+                        </li>
+                        <li class="btn btn-outline-dark text-uppercase py-2 px-4" data-filter=".changed">
+                            <div>
+                                <img style="max-width: 25px; max-height: 25px;"
+                                    src="{{ url_for('static', filename='icons/replace.png') }}">
+                                Changed Background
+                            </div>
+                        </li>
+                        <li class="btn btn-outline-dark text-uppercase py-2 px-4" data-filter=".background">
+                            <div>
+                                <img style="max-width: 25px; max-height: 25px;"
+                                    src="{{ url_for('static', filename='icons/no_background.png') }}">
+                                Blured Background
+                            </div>
+                        </li>
+                        <li class="btn btn-outline-dark text-uppercase py-2 px-4" data-filter=".humans">
+                            <div>
+                                <img style="max-width: 25px; max-height: 25px;"
+                                    src="{{ url_for('static', filename='icons/user.png') }}">
+                                Blured Humans
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row portfolio-container">
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item background">
+                    <div class="position-relative rounded overflow-hidden mb-2">
+                        <img class="img-fluid w-100 same-size"
+                            src="{{ url_for('static', filename='img/blur_background1.png') }}" alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/blur_background_img.png') }}"
+                                data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item changed">
+                    <div class="position-relative rounded overflow-hidden mb-2 ">
+                        <img class="img-fluid w-100 same-size"
+                            src="{{ url_for('static', filename='img/changed_background1.jpg') }}" alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/changed_background1.jpg') }}"
+                                data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item background">
+                    <div class="position-relative rounded overflow-hidden mb-2">
+                        <img class="img-fluid w-100" src="{{ url_for('static', filename='img/blur_background2.png') }}"
+                            alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/blur_background2.png') }}"
+                                data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item humans">
+                    <div class="position-relative rounded overflow-hidden mb-2">
+                        <img class="img-fluid w-100" src="{{ url_for('static', filename='img/blur_human1.png') }}"
+                            alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/blur_human1.png') }}" data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item changed">
+                    <div class="position-relative rounded overflow-hidden mb-2">
+                        <img class="img-fluid w-100"
+                            src="{{ url_for('static', filename='img/changed_background3.jpg') }}" alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/changed_background3.jpg') }}"
+                                data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item humans">
+                    <div class="position-relative rounded overflow-hidden mb-2">
+                        <img class="img-fluid w-100" src="{{ url_for('static', filename='img/blur_human3.png') }}"
+                            alt="">
+                        <div class="portfolio-btn d-flex align-items-center justify-content-center">
+                            <a href="{{ url_for('static', filename='img/blur_human3.png') }}" data-lightbox="portfolio">
+                                <i class="fa fa-4x fa-plus text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Portfolio End -->
+    <!-- 15 br hahaha -->
+    <!-- Team Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <h1 class="display-4 text-uppercase text-center mb-5">Meet Our Team</h1>
+            <!-- <div class="owl-carousel team-carousel position-relative" style="padding-left: 30px;"> -->
+            <div class="team-item rounded overflow-hidden">
+                <div class="position-relative">
+                    <img class="img-fluid w-100" style="max-width: 400px; max-height: 400px; margin-left: 31%;"
+                        src="{{ url_for('static', filename='img/cropped_me_glasses.png') }}" alt="">
+                    <!-- <div class="team-overlay" style="max-width: 250px;margin-left: 35%;">
+                        <div class="d-flex align-items-center justify-content-start">
+                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" target="_blank"
+                                href="/instagram"><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg btn-primary btn-lg-square mx-1" href="#"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="bg-light text-center p-4" style="max-width: 500px;margin-left: 26%;">
+                    <h4 class="text-uppercase">Hisham Al Ahmad</h4>
+                    <p class="m-0">Programmer, Designer, Artist</p>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <!-- Team End -->
+
+
+    <!-- Testimonial Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <h1 class="display-4 text-uppercase text-center mb-5">Our Client's Say</h1>
+            <div class="owl-carousel testimonial-carousel">
+                <div class="testimonial-item position-relative text-center rounded p-4">
+                    <img class="img-fluid rounded mx-auto my-4" src="{{ url_for('static', filename='img/mahdi1.png') }}"
+                        alt="">
+                    <h5 class="text-uppercase">Mahdi Edwan</h5>
+                    <p class="text-uppercase">Genuis</p>
+                    <p class="text-secondary">Bro what is this!? It's very awesome.</p>
+                </div>
+                <div class="testimonial-item position-relative text-center rounded p-4">
+                    <img class="img-fluid rounded mx-auto my-4"
+                        src="{{ url_for('static', filename='img/tom_holand.png') }}" alt="">
+                    <h5 class="text-uppercase">Tom Holand</h5>
+                    <p class="text-uppercase">Spiderman</p>
+                    <p class="text-secondary">Oh man, this is the best editing website i have ever seen.</p>
+                </div>
+                <div class="testimonial-item position-relative text-center rounded p-4">
+                    <img class="img-fluid rounded mx-auto my-4" src="{{ url_for('static', filename='img/mousa1.png') }}"
+                        alt="">
+                    <h5 class="text-uppercase">Mohamad Mousa</h5>
+                    <p class="text-uppercase">Programmer</p>
+                    <p class="text-secondary">Words can't express this. My words ran out of me when i saw this amazing
+                        website. </p>
+                </div>
+                <div class="testimonial-item position-relative text-center rounded p-4">
+                    <img class="img-fluid rounded mx-auto my-4"
+                        src="{{ url_for('static', filename='img/elon_musk.png') }}" alt="">
+                    <h5 class="text-uppercase">Elon Musk</h5>
+                    <p class="text-uppercase">Millioner</p>
+                    <p class="text-secondary">This is very great project, i can see the hard work in it. I will hire you
+                        to my company.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+
+    <!-- Footer Start -->
+    {% include "footer.html" %}
+    <!-- Footer End -->
+
+    <!-- Scripts Start -->
+    {% include "scripts.html" %}
+    <!-- Scripts End -->
+    <script>
+        function redirect(value) {
+            if (value == "enhance_image") {
+                window.location.href = "{{ url_for('Enhance_btn.index') }}"
+            }
+            if (value == "crop_image") {
+                window.location.href = "{{ url_for('Crop_btn.index') }}"
+            }
+            if (value == "filter_image") {
+                window.location.href = "{{ url_for('Filters_btn.index') }}"
+            }
+            if (value == "resize_image") {
+                window.location.href = "{{ url_for('Resize_btn.index') }}"
+            }
+            if (value == "model") {
+                window.location.href = "{{ url_for('Model.index') }}"
+            }
+        }
+    </script>
+</body>
+
+</html>
