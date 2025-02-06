@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Background</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+    <link rel="stylesheet" href="{{ url_for('Change_Background_btn.static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Upload Image to change the Background:</h1>
+    <form id="image-form">
+        <div data-mdb-input-init class="form-outline" style="width: 30rem; margin-left: 20px;">
+            <input type="file" class="form-control form-control-lg" id="imageUpload" name="image" accept="image/*" required>      
+            <br>  
+        </div>
+    </form>
+    <div class="image-section">
+        <div id="image-container">
+            <img id="image" src="" style="max-width: 500px; max-height: 500px;">
+        </div>
+        <div class="output-section" style="display:none;">
+            <div class="img-preview">
+                <div id="imagePreview">
+                    <img id="output_image" src="" style="max-width: 500px; max-height: 500px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- images to change background -->
+    <div id="chnage-image">
+        <h2>Choose an image to change the Background:</h2>
+        <a href="#space">
+            <img class="background-image" id="space" height="200px" width="200px" src="{{ url_for('Change_Background_btn.static', filename='background/space.jpg') }}">
+        </a>
+        <a href="#ocean">
+            <img class="background-image" id="ocean" height="200px" width="200px" src="{{ url_for('Change_Background_btn.static', filename='background/ocean.jpg') }}">
+        </a>
+        <a href="#sand">
+            <img class="background-image" id="sand" height="200px" width="200px" src="{{ url_for('Change_Background_btn.static', filename='background/sand.jpg') }}">
+        </a>
+        <a href="#mountain">
+            <img class="background-image" id="mountain" height="200px" width="200px" src="{{ url_for('Change_Background_btn.static', filename='background/mountain.jpg') }}">
+        </a>
+        <a href="#desert">
+            <img class="background-image" id="desert" height="200px" width="200px" src="{{ url_for('Change_Background_btn.static', filename='background/desert.jpg') }}">
+        </a>
+        <a href="#forest">
+            <img class="background-image" id="forest" height="200px" width="200px" src="{{ url_for('Change_Background_btn.static', filename='background/forest.jpg') }}">
+        </a>
+    </div>
+    <br>
+    <!-- USER image to change background -->
+    <form id="user-image-form">
+        <h3>Upload an background:</h3>
+        <div data-mdb-input-init class="form-outline" style="width: 30rem; margin-left: 20px;">
+            <input type="file" class="form-control form-control-lg" id="user-imageUpload" name="user_image" accept="image/*" required>      
+            <br>  
+        </div>
+    </form>
+    <div id="user-image-container">
+        <a id="a_user" href="">
+            <img class="user-background-image" id="user_img" src="">
+        </a>
+    </div>
+    <br>
+    <div class="loader" style="display:none;"></div>
+    <br>
+    <!-- Save btn -->
+    <button style="margin-left: 7%; display: none;" class="btn btn-danger btn-lg" id="saveOriginalImage">Save Image</button>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script>
+       $(document).ready(function() {
+            var image = document.getElementById('image');
+            var output_image = document.getElementById('output_image');
+            var parentDiv = document.querySelector('.image-section');
+            var userImageContainer = document.getElementById('user-image-container');
+            var originalFilename = 'filename';
+            var filename;
+
+            $("#imageUpload").change(function() {
+                var formData = new FormData($('#image-form')[0]);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url_for('Change_Background_btn.upload_image') }}",
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        filename = data.filename;
+                        console.log(filename);
+                        image.src = '/Change_Background_btn/get_original_image/' + filename;
+                        console.log('Success upload!');
+                    }
+                });
+            });
+
+            // this one here is for the user
+            // Add an event listener to the file input field
+            document.getElementById('user-imageUpload').addEventListener('change', function(event) {
+                // Get the uploaded file
+                var file = this.files[0];
+                        
+                // Create a new FormData object
+                var formData = new FormData();
+                formData.append('user_image', file);
+                        
+                // Send the file to the server using AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url_for('Change_Background_btn.user_upload_image') }}",
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        // Get the uploaded image filename with extension
+                        var filename = data.filename;
+                        console.log(filename);
+                        filename_no_extension = filename.split('.').slice(0, -1).join('.');
+                        console.log(filename_no_extension);
+                        // Create a new image element
+                        var img = document.getElementById('user_img');
+                        img.src = '/Change_Background_btn/get_user_background/' + filename;
+                        img.style.width = '200px';
+                        img.style.height = '200px';
+                        img.classList.add('user-background-image');
+
+                        // Create a new link element
+                        var link = document.getElementById('a_user');
+                        link.href = '#' + filename_no_extension;
+                        // Ensure the container is visible
+                        userImageContainer.style.display = 'flex';
+                        // Ensure the image is visible
+                        img.style.display = 'block';
+                    
+                        console.log('Success user background uploaded!');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error uploading user image: ' + error.message);
+                    }
+                });
+            });
+            
+            $("#user_img").click(function() {
+                var formData = new FormData($('#image-form')[0]);
+                var src = event.target.src;
+                var extension = src.match(/\.(jpg|png|jpeg)$/i)[1];
+                var image_background = event.target.id + '.' + extension;
+                console.log(image_background);
+                var data = { filename: filename, image_background: image_background, is_user: true };
+                $('.loader').show();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Change_Background_btn/change_background',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function(data) {
+                        $('.loader').hide();
+                        $('#saveOriginalImage').show();
+                        $('.output-section').show();
+                        parentDiv.style.display = 'flex';
+                        originalFilename = data.filename;
+                        output_image.src = '/Change_Background_btn/get_image/' + data.filename;
+
+                        console.log('Success changed background from user!');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.background-image').forEach(function(image) {
+                image.addEventListener('click', function(event) {
+                    var src = event.target.src;
+                    var extension = src.match(/\.(jpg|png)$/i)[1];
+                    var image_background = event.target.id + '.' + extension;
+                    console.log(image_background);
+                    var data = { filename: filename, image_background: image_background, is_user: false };
+
+                    $('.loader').show();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Change_Background_btn/change_background',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        success: function(data) {
+                            $('.loader').hide();
+                            $('#saveOriginalImage').show();
+                            $('.output-section').show();
+                            parentDiv.style.display = 'flex';
+                            originalFilename = data.filename;
+                            output_image.src = '/Change_Background_btn/get_image/' + data.filename;
+
+                            console.log('Success changed background from img!');
+                        }
+                    });
+                });
+            });
+
+           
+            document.getElementById('saveOriginalImage').addEventListener('click', function() {
+                // Create a new Blob object from the original image URL
+                fetch('/Change_Background_btn/get_image/' + originalFilename)
+                    .then(function(response) {
+                        return response.blob();
+                    })
+                    .then(function(blob) {
+                        // Create a new URL object from the Blob object
+                        var url = URL.createObjectURL(blob);
+                        // Create a new link element
+                        var link = document.createElement('a');
+                        // Set the href attribute of the link element to the new URL
+                        link.href = url;
+                        // Set the download attribute of the link element to the original image filename
+                        link.download = originalFilename;
+                        // Programmatically click the link element to download the image
+                        link.click();
+                        // Revoke the object URL after the download is complete
+                        URL.revokeObjectURL(url);
+                    });
+            });
+        });
+    
+    </script>
+</body>
+</html>
