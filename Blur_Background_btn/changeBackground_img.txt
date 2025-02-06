@@ -1,0 +1,6 @@
+					*THE IMAGE MUST BE UPLOADED TO DO THIS :*
+1. Add some images in the web.
+2. When we click on the image, we add the image to the uploaded image place.
+3. The human will be croped.
+4. The croped human will be added to the changed background img.
+5. return the image.
