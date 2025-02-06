@@ -1,5 +1,4 @@
 # General ignores
-Deep_learning_code/
 Testing/
 Model/model.h5
 Enhance_btn/.ipynb_checkpoints/*
