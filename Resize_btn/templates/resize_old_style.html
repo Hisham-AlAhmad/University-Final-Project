@@ -1,0 +1,182 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resize Image</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+    <link rel="stylesheet" href="{{ url_for('Resize_btn.static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Enter the image to Resize it:</h1>
+    <form id="image-form">
+        <div data-mdb-input-init class="form-outline" style="width: 30rem; margin-left: 20px;">
+            <input type="file" class="form-control form-control-lg" id="imageUpload" name="image" accept="image/*" required>      
+            <br>  
+        </div>
+    </form>
+    <div class="image-section">
+        <div id="image-container">
+            <img id="image" src="" style="max-width: 500px; max-height: 500px;">
+        </div>
+        <div class="output-section" style="display:none;">
+            <div class="img-preview">
+                <div id="imagePreview">
+                    <img id="output_image" src="" style="max-width: 500px; max-height: 500px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="btn-container">
+        <h2>Resize By:</h2>
+        <button class="btn btn-info btn-lg" id="profile_pictures-button">Profile Picture</button>
+        <button class="btn btn-info btn-lg" id="phone_wallpaper-button">Phone Wallpaper</button>
+        <button class="btn btn-info btn-lg" id="laptop_wallpaper-button">Laptop Wallpaper</button>
+    </div>
+    <br>
+    <div id="num-resize">
+        <input type="number" id="resize_value" value="2" min="0" max="10"/>
+        <button class="btn btn-info btn-sm" id="resize_value-button">resize by <span id="num">2</span></button>
+    </div>
+    <br>
+    <button style="margin-left: 7%; display: none;" class="btn btn-danger btn-lg" id="saveOriginalImage">Save Image</button>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script>
+       $(document).ready(function() {
+            const inputv = document.querySelector("#resize_value");
+            const perc = document.getElementById("num");
+            inputv.addEventListener("input",() => {perc.innerHTML = inputv.value;});
+
+            var image = document.getElementById('image');
+            var output_image = document.getElementById('output_image');
+            var parentDiv = document.querySelector('.image-section');
+            var originalFilename = 'filename';
+            var cropRect = {};
+            var isDragging = false;
+            var originalImageWidth, originalImageHeight;
+            var resizedImageWidth, resizedImageHeight;
+            var filename;
+
+            $("#imageUpload").change(function() {
+                // var fileInput = $(this)[0];
+                // var filename = fileInput.files[0].name;
+                // filename = changeExtension(filename);
+                var formData = new FormData($('#image-form')[0]);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url_for('Resize_btn.upload_image') }}",
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        filename = data.filename;
+                        console.log(filename);
+                        image.src = '/Resize_btn/get_original_image/' + filename;
+                        console.log('Success upload!');
+                    }
+                });
+            });
+
+            $('#profile_pictures-button').on('click', function(event) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Resize_btn/profile_pic',
+                    data: JSON.stringify({filename: filename }),
+                    contentType: 'application/json',
+                    success: function(data) {
+                        $('#saveOriginalImage').show();
+                        $('.output-section').show();
+                        parentDiv.style.display = 'flex';
+                        originalFilename = data.filename;
+                        output_image.src = '/Resize_btn/get_image/' + data.filename;
+
+                        console.log('Success profile pic!');
+                    }
+                });
+            });
+
+            $('#phone_wallpaper-button').on('click', function(event) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Resize_btn/phone_wallpaper',
+                    data: JSON.stringify({filename: filename }),
+                    contentType: 'application/json',
+                    success: function(data) {
+                        $('#saveOriginalImage').show();
+                        $('.output-section').show();
+                        parentDiv.style.display = 'flex';
+                        originalFilename = data.filename;
+                        console.log('Image saved successfully:', data.filename);
+                        output_image.src = '/Resize_btn/get_image/' + data.filename;
+
+                        console.log('Success phone wallpaper!');
+                    }
+                });
+            });
+
+            $('#laptop_wallpaper-button').on('click', function(event) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Resize_btn/laptop_wallpaper',
+                    data: JSON.stringify({filename: filename }),
+                    contentType: 'application/json',
+                    success: function(data) {
+                        $('#saveOriginalImage').show();
+                        $('.output-section').show();
+                        parentDiv.style.display = 'flex';
+                        originalFilename = data.filename;
+                        console.log('Image saved successfully:', data.filename);
+                        output_image.src = '/Resize_btn/get_image/' + data.filename;
+
+                        console.log('Success laptop wallpaper!');
+                    }
+                });
+            });
+
+            $('#resize_value-button').on('click', function(event) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Resize_btn/resize_by_x',
+                    data: JSON.stringify({ number: inputv.value, filename: filename }),
+                    contentType: 'application/json',
+                    success: function(data) {
+                        $('#saveOriginalImage').show();
+                        $('.output-section').show();
+                        parentDiv.style.display = 'flex';
+                        originalFilename = data.filename;
+                        console.log('Image saved successfully:', data.filename);
+                        output_image.src = '/Resize_btn/get_image/' + data.filename;
+
+                        console.log('Success resize by x!');
+                    }
+                });
+            });
+
+            document.getElementById('saveOriginalImage').addEventListener('click', function() {
+                // Create a new Blob object from the original image URL
+                fetch('/Resize_btn/get_image/' + originalFilename)
+                    .then(function(response) {
+                        return response.blob();
+                    })
+                    .then(function(blob) {
+                        // Create a new URL object from the Blob object
+                        var url = URL.createObjectURL(blob);
+                        // Create a new link element
+                        var link = document.createElement('a');
+                        // Set the href attribute of the link element to the new URL
+                        link.href = url;
+                        // Set the download attribute of the link element to the original image filename
+                        link.download = originalFilename;
+                        // Programmatically click the link element to download the image
+                        link.click();
+                        // Revoke the object URL after the download is complete
+                        URL.revokeObjectURL(url);
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
